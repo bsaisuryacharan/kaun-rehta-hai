@@ -120,10 +120,7 @@ function render() {
     return;
   }
 
-  const limitedGroups = groups.slice(0, 80);
-  const hidden = groups.length - limitedGroups.length;
-  els.results.innerHTML = `${hidden > 0 ? `<div class="note">Showing first 80 house groups. Add more search details to narrow ${hidden.toLocaleString("en-IN")} more groups.</div>` : ""}
-    ${limitedGroups.map((group) => `
+  els.results.innerHTML = groups.map((group) => `
       <article class="house-card">
         <header class="house-head">
           <div class="house-number">${escapeHtml(group.house)}</div>
@@ -156,7 +153,7 @@ function render() {
           </table>
         </div>
       </article>
-    `).join("")}`;
+    `).join("");
 }
 
 function clearFilters() {
