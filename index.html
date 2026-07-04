@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <title>Voter Lookup</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app">
+      <section class="toolbar" aria-label="Search voters">
+        <div class="title-block">
+          <h1>Voter Lookup</h1>
+          <p id="rollMeta">Loading voter list...</p>
+        </div>
+
+        <div class="search-row">
+          <label class="field field-wide">
+            <span>House number</span>
+            <input id="houseSearch" type="search" autocomplete="off" placeholder="Type door / house number">
+          </label>
+          <div class="actions">
+            <button id="filterBtn" class="secondary-btn" type="button" aria-haspopup="dialog" aria-controls="filterDialog">Filters</button>
+            <button id="clearBtn" type="button">Clear</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="summary" aria-live="polite">
+        <div>
+          <strong id="matchCount">0</strong>
+          <span>matching voters</span>
+        </div>
+        <div>
+          <strong id="houseCount">0</strong>
+          <span>house groups</span>
+        </div>
+      </section>
+
+      <section id="results" class="results" aria-label="Lookup results"></section>
+    </main>
+
+    <div id="filterDialog" class="dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="filterTitle" hidden>
+      <section class="dialog-panel">
+        <header class="dialog-head">
+          <h2 id="filterTitle">Filters</h2>
+          <button id="closeFiltersBtn" class="icon-btn" type="button" aria-label="Close filters">x</button>
+        </header>
+
+        <div class="filter-grid">
+          <label class="field">
+            <span>Name</span>
+            <input id="nameSearch" type="search" autocomplete="off" placeholder="Voter name">
+          </label>
+          <label class="field">
+            <span>Voter ID</span>
+            <input id="voterIdSearch" type="search" autocomplete="off" placeholder="EPIC / ID">
+          </label>
+          <label class="field">
+            <span>Relative</span>
+            <input id="relativeSearch" type="search" autocomplete="off" placeholder="Father / husband name">
+          </label>
+          <label class="field">
+            <span>Gender</span>
+            <select id="genderFilter" aria-label="Gender filter">
+              <option value="">All genders</option>
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+            </select>
+          </label>
+          <label class="field range-field">
+            <span>Age</span>
+            <div class="range-pair">
+              <input id="minAge" type="number" min="18" max="120" placeholder="Min">
+              <input id="maxAge" type="number" min="18" max="120" placeholder="Max">
+            </div>
+          </label>
+        </div>
+
+        <footer class="dialog-actions">
+          <button id="clearPopupBtn" class="secondary-btn" type="button">Clear filters</button>
+          <button id="applyFiltersBtn" type="button">Apply</button>
+        </footer>
+      </section>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
