@@ -49,11 +49,32 @@ function includesLoose(source, query) {
   return clean(source).includes(q);
 }
 
+function normalizeHouse(value) {
+  return text(value)
+    .toLowerCase()
+    .replace(/[–—]/g, "-")
+    .replace(/\b(?:h\s*\.?\s*no|house\s*no|house\s*number)\b\.?/g, "")
+    .replace(/\s+/g, "")
+    .replace(/-+/g, "-")
+    .replace(/\/+/g, "/")
+    .replace(/^[,.:;-]+|[,.:;-]+$/g, "");
+}
+
 function sameHouseMatch(source, query) {
-  const q = clean(query);
+  const q = normalizeHouse(query);
   if (!q) return true;
-  const normalized = clean(source);
-  return normalized.includes(q) || text(source).toLowerCase().includes(String(query).trim().toLowerCase());
+  const normalized = normalizeHouse(source);
+
+  if (q.includes("-") || q.includes("/")) {
+    return normalized === q
+      || normalized.startsWith(`${q}/`)
+      || normalized.startsWith(`${q},`)
+      || normalized.startsWith(`${q}plot`)
+      || normalized.includes(`/${q}/`)
+      || normalized.includes(`,${q},`);
+  }
+
+  return normalized.includes(q);
 }
 
 function escapeHtml(value) {
